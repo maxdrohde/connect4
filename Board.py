@@ -81,7 +81,7 @@ class Board:
         print(shapes.BAR_BOTTOM_LEFT + shapes.BAR_H * self.width * 2 + shapes.BAR_BOTTOM_RIGHT)
 
     def check_win(self):
-        if self.check_row(self.board) or self.check_row(self.transpose(self.board)):
-            return(True)
-        else:
-            return(False)
+        win = (self.check_row(self.board) or
+               self.check_row(self.transpose(self.board)) or
+               self.check_row(self.get_diagonals()))
+        return(win)
