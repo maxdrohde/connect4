@@ -1,3 +1,14 @@
+import importlib
+
+def load_bot(bot_name):
+    try:
+        bot_module = importlib.import_module('bots.' + bot_name)
+        bot_class = getattr(bot_module, bot_name)
+        return(bot_class())
+    except ImportError:
+        print("No bot by name " + bot_name + " found!")
+        exit(1)
+
 class colors:
     BLACK   = "\033[0;30m"
     RED     = "\033[1;31m"
