@@ -11,10 +11,11 @@ def flip(x):
         return(1)
 
 def get_column():
-    number = int(input('Column?     '))
-    while number not in [1,2,3,4,5,6,7]:
-        number = int(input('Enter a proper column number!'))
-    return(number)
+    number = input('Column?     ')
+    while not number.isdigit() or int(number) not in range(1,8):
+        number = input('Enter a proper column number!')
+
+    return(int(number))
 
 while board.check_win() == False:
     os.system('clear')
