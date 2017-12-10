@@ -30,6 +30,34 @@ class Board:
         self.board[current_row][column_number] = piece
         return(True)
 
+    def get_diagonals(self, flipped = False):
+        """Recursively finds all diagonals in the current board
+
+        Generally, this function should not be called with flipped = True,
+        which will only return diagonals in this direction: /
+        """
+        brd = [x[::-1] for x in self.board] if flipped else self.board[:]
+        diag_down = []
+
+        # Get diagonals from bottom left to the middle
+        for row in range(self.height - 1, -1, -1):
+            diag_length = min(self.height, self.height - row)
+            diag = ''.join([brd[row + i][i] for i in range(diag_length)])
+            diag_down.append(diag)
+
+        # Get diagonals from one past the middle to the top right
+        for col in range(1, self.width):
+            diag_length = min(self.height, self.width - col)
+            diag = ''.join([brd[i][col + i] for i in range(diag_length)])
+            diag_down.append(diag)
+
+        # Get diagonals in the other direction by calling recursively with the
+        # board flipped
+        if not flipped:
+            d = self.get_diagonals(flipped = True)
+            diag_down += d
+
+        return(diag_down)
 
     def check_row(self,array):
         for row in array:
