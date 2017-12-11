@@ -12,11 +12,14 @@ class Game:
         self.bot1 = bot1
         self.bot2 = bot2
 
-        bot1.player_number = 1
-        bot2.player_number = 2
+        if bot1:
+            bot1.player_number = 1
+        if bot2:
+            bot2.player_number = 2
 
     def play(self):
         game_over = False
+
         while not game_over:
             os.system('clear')
             self.game_board.print_board()
@@ -32,7 +35,11 @@ class Game:
 
         os.system('clear')
         self.game_board.print_board()
-        print('Player '+str(self.flip(self.current_turn))+' wins!')
+
+        if game_over == "tie":
+            print("It's a tie!")
+        else:
+            print('Player '+str(self.flip(self.current_turn))+' wins!')
 
     def flip(self, x):
         if x == 1:

@@ -66,6 +66,14 @@ class Board:
                 return(True)
         return(False)
 
+    def check_full(self):
+        """Checks if the board has no more available moves"""
+        for row in self.board:
+            for piece in row:
+                if piece == self.blank:
+                    return(False)
+        return(True)
+
     def transpose(self,array):
         return ([list(x) for x in zip(*array)])
 
@@ -81,7 +89,17 @@ class Board:
         print(shapes.BAR_BOTTOM_LEFT + shapes.BAR_H * self.width * 2 + shapes.BAR_BOTTOM_RIGHT)
 
     def check_win(self):
+        """Determines if the board is in a game over state
+
+        If a player has won the game, return True.
+        If the board is full and nobody has won, return "tie".
+        Otherwise, return False
+        """
         win = (self.check_row(self.board) or
                self.check_row(self.transpose(self.board)) or
                self.check_row(self.get_diagonals()))
+
+        if not win and self.check_full():
+            win = "tie"
+
         return(win)
