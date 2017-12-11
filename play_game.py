@@ -13,9 +13,9 @@ class Game:
         self.bot2 = bot2
 
         if bot1:
-            bot1.player_number = 1
+            bot1.player_color = self.game_board.blue
         if bot2:
-            bot2.player_number = 2
+            bot2.player_color = self.game_board.red
 
     def play(self):
         game_over = False

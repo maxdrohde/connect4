@@ -7,8 +7,8 @@ class Board:
         self.width = 7
 
         self.blank = colors.WHITE + shapes.CIRCLE + colors.ENDC
-        self.p1 = colors.CYAN + shapes.CIRCLE + colors.ENDC
-        self.p2 = colors.RED + shapes.CIRCLE + colors.ENDC
+        self.blue = colors.CYAN + shapes.CIRCLE + colors.ENDC
+        self.red = colors.RED + shapes.CIRCLE + colors.ENDC
 
         row = [self.blank for x in range(self.width)]
         self.board = [row[:] for x in range(self.height)]

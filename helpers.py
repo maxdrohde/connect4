@@ -6,7 +6,7 @@ def load_bot(bot_name):
         bot_class = getattr(bot_module, bot_name)
         return(bot_class())
     except ImportError:
-        print("No bot by name " + bot_name + " found!")
+        print("Can't import " + bot_name + '!')
         exit(1)
 
 class colors:
@@ -31,3 +31,6 @@ class shapes:
     CIRCLE = u"\u2B24"
     HOLLOW_CIRCLE = u"\u25CB"
     LARGE_CIRCLE = u"\u25EF"
+
+def transpose(array):
+    return ([list(x) for x in zip(*array)])
