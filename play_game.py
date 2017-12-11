@@ -12,8 +12,12 @@ class Game:
         self.bot1 = bot1
         self.bot2 = bot2
 
+        bot1.player_number = 1
+        bot2.player_number = 2
+
     def play(self):
-        while self.game_board.check_win() == False:
+        game_over = False
+        while not game_over:
             os.system('clear')
             self.game_board.print_board()
             num = self.get_column()
@@ -23,6 +27,8 @@ class Game:
                     self.current_turn = 2
                 else:
                     self.current_turn = 1
+
+            game_over = self.game_board.check_win()
 
         os.system('clear')
         self.game_board.print_board()
