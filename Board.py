@@ -59,10 +59,10 @@ class Board:
 
         return(diag_down)
 
-    def check_row(self,array):
+    def x_in_a_row(self,array,x):
         for row in array:
             row_string = ''.join(row)
-            if self.blue*4 in row_string or self.red*4 in row_string:
+            if self.blue*x in row_string or self.red*x in row_string:
                 return(True)
         return(False)
 
@@ -95,9 +95,10 @@ class Board:
         If the board is full and nobody has won, return "tie".
         Otherwise, return False
         """
-        win = (self.check_row(self.board) or
-               self.check_row(self.transpose(self.board)) or
-               self.check_row(self.get_diagonals()))
+        inarow = 4
+        win = (self.x_in_a_row(self.board, inarow) or
+               self.x_in_a_row(self.transpose(self.board), inarow) or
+               self.x_in_a_row(self.get_diagonals(), inarow))
 
         if not win and self.check_full():
             win = "tie"
