@@ -1,6 +1,7 @@
 class Hal:
     def __init__(self):
         self.name = "Hal"
+        self.player_number = None
 
     def play_piece(self, board):
         """ Always chooses the furthest left column """

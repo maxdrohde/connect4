@@ -8,7 +8,7 @@ User bots are looked for in the bots directory. All bots must follow these rules
 
 * The bot must be a class of the same name as the file
 * The bot contains a `play_piece` method defined that takes in a `Board` object representing the current board, and returning an integer representing the column to play the piece on
-* The bot needs to be initialized with a name
+* The bot needs to be initialized with a string called `name` and a variable `player_number`, which will be initialized when a new game is created.
 
 For an example bot, refer to Hal in the bots directory.
 
