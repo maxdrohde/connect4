@@ -26,7 +26,7 @@ class Board:
             if current_row == -1:
                 print('\007')
                 return(False)
-        piece = self.p1 if player_number == 1 else self.p2
+        piece = self.blue if player_number == 1 else self.red
         self.board[current_row][column_number] = piece
         return(True)
 
@@ -62,7 +62,7 @@ class Board:
     def check_row(self,array):
         for row in array:
             row_string = ''.join(row)
-            if self.p1*4 in row_string or self.p2*4 in row_string:
+            if self.blue*4 in row_string or self.red*4 in row_string:
                 return(True)
         return(False)
 
