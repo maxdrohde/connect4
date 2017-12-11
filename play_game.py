@@ -2,6 +2,8 @@ from Board import Board
 from helpers import load_bot
 import os, sys
 import time
+import copy
+
 
 class Game:
     def __init__(self, bot1 = None, bot2 = None):
@@ -34,10 +36,10 @@ class Game:
 
     def get_column(self):
         if self.current_turn == 1 and self.bot1 != None:
-            number = self.bot1.play_piece(self.game_board)
+            number = self.bot1.play_piece(copy.deepcopy(self.game_board))
             time.sleep(0.5)
         elif self.current_turn == 2 and self.bot2 != None:
-            number = self.bot1.play_piece(self.game_board)
+            number = self.bot2.play_piece(copy.deepcopy(self.game_board))
             time.sleep(0.5)
         else:
             number = input('Column?     ')
