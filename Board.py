@@ -14,7 +14,7 @@ class Board:
         self.board = [row[:] for x in range(self.height)]
 
 
-    def drop(self,column_number,player_number):
+    def drop(self,column_number,player_color):
         column_number = column_number - 1
         column = []
         for row in self.board:
@@ -26,7 +26,7 @@ class Board:
             if current_row == -1:
                 print('\007')
                 return(False)
-        piece = self.blue if player_number == 1 else self.red
+        piece = self.blue if player_color == 1 else self.red
         self.board[current_row][column_number] = piece
         return(True)
 
