@@ -59,10 +59,10 @@ class Game:
     def get_column(self):
         if self.current_turn == 1 and self.bot1 != None:
             number = self.bot1.play_piece(copy.deepcopy(self.game_board))
-            #time.sleep(0.25)
+            time.sleep(0.25)
         elif self.current_turn == 2 and self.bot2 != None:
             number = self.bot2.play_piece(copy.deepcopy(self.game_board))
-            #time.sleep(0.25)
+            time.sleep(0.25)
         else:
             number = input('Column?     ')
             while not number.isdigit() or int(number) not in range(1,8):
