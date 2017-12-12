@@ -136,11 +136,11 @@ if __name__ == '__main__':
         print('--------------------------------')
         b1_win_rate = (int(b1_wins)/(int(b1_wins)+int(b2_wins)))*100
         b2_win_rate = (int(b2_wins)/(int(b1_wins)+int(b2_wins)))*100
-        print(bot1.name + ' win rate is '+ str(b1_win_rate)+'%')
-        print(bot2.name + ' win rate is '+ str(b2_win_rate)+'%')
+        print(bot1.name + ' win rate is '+ ("%.2f" % b1_win_rate)+' %')
+        print(bot2.name + ' win rate is '+ ("%.2f" % b2_win_rate)+' %')
         print('--------------------------------')
 
-        print('This simulation took ' + str(elapsed) + ' seconds')
+        print('This simulation took ' + ("%.2f" % elapsed) + ' seconds')
         print('--------------------------------')
 
         plot = False
