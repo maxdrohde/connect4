@@ -3,6 +3,8 @@ from helpers import load_bot
 import os, sys
 import time
 import copy
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 class Game:
@@ -11,9 +13,9 @@ class Game:
         self.current_turn = 1
         self.bot1 = bot1
         self.bot2 = bot2
-        self.sleep_time = 0.0
-        self.clear = True
-        self.display = False
+        self.sleep_time = 0.0 # Controls the delay for the bots actions
+        self.clear = True # For debugging - prints all the boards if false
+        self.display = False # If running simulations - keep false
 
 
         if bot1:
@@ -60,9 +62,6 @@ class Game:
 
             return(winner)
 
-
-
-
     def flip(self, x):
         if x == 1:
             return (2)
@@ -100,13 +99,16 @@ if __name__ == '__main__':
         rounds = sys.argv[3]
 
     start = time.time()
+
     winners = []
+    #This is the game loop
     for x in range(int(rounds)):
         game = Game(bot1, bot2)
         winners.append(game.play())
 
     end = time.time()
     elapsed = end - start
+
     b1_wins = str(len([x for x in winners if x == bot1.name]))
     b2_wins = str(len([x for x in winners if x == bot2.name]))
     ties = str(len([x for x in winners if x == 'Tie']))
@@ -114,3 +116,11 @@ if __name__ == '__main__':
     print(bot2.name + ' won '+b2_wins+ ' times')
     print('There were '+ties+' ties')
     print('This simulation took ' + str(elapsed) + ' seconds')
+
+#Plots the wins for each bot
+    x = np.arange(2)
+    wins = [int(b1_wins),int(b2_wins)]
+    fig, ax = plt.subplots()
+    plt.bar(x, wins)
+    plt.xticks(x, (bot1.name,bot2.name))
+    plt.show()

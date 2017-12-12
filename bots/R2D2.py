@@ -3,21 +3,19 @@ from random import randint
 class R2D2:
     def __init__(self):
         self.name = "R2D2"
-        self.player_number = None
+        self.player_color = None
+        self.red = None
+        self.blue = None
 
     def play_piece(self, board):
-        """ Always chooses a random column """
-        available_columns = [i for i in range(len(board.board[0]))]
-        rand_col = self.get_random_column(available_columns)
-
         # Find a new column if the randomly chosen one is full
+        rand_col = self.get_random_column()
         while board.board[0][rand_col] != board.blank:
-            available_columns.remove(rand_col)
-            rand_col = self.get_random_column(available_columns)
+            rand_col = self.get_random_column()
 
         # The board columns are numbered for humans, so increase by one
-        return rand_col
+        return (rand_col+1)
 
-    def get_random_column(self, available_columns):
-        rand_num = randint(0, len(available_columns) - 1)
-        return(available_columns[rand_num])
+    def get_random_column(self):
+        rand_num = randint(0, 6)
+        return(rand_num)
