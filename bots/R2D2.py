@@ -2,7 +2,7 @@ from random import randint
 
 class R2D2:
     def __init__(self):
-        self.name = "Hal"
+        self.name = "R2D2"
         self.player_number = None
 
     def play_piece(self, board):

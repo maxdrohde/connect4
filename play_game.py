@@ -39,7 +39,10 @@ class Game:
         if game_over == "tie":
             print("It's a tie!")
         else:
-            print('Player '+str(self.flip(self.current_turn))+' wins!')
+            num_winner = str(self.flip(self.current_turn))
+            winner = self.number_to_bot(num_winner,self.bot1.name,self.bot2.name)
+            print(winner+' wins!')
+
 
     def flip(self, x):
         if x == 1:
@@ -47,13 +50,19 @@ class Game:
         else:
             return(1)
 
+    def number_to_bot(self,number,b1,b2):
+        if number == '1':
+            return(b1)
+        else:
+            return(b2)
+
     def get_column(self):
         if self.current_turn == 1 and self.bot1 != None:
             number = self.bot1.play_piece(copy.deepcopy(self.game_board))
-            time.sleep(0.25)
+            #time.sleep(0.25)
         elif self.current_turn == 2 and self.bot2 != None:
             number = self.bot2.play_piece(copy.deepcopy(self.game_board))
-            time.sleep(0.25)
+            #time.sleep(0.25)
         else:
             number = input('Column?     ')
             while not number.isdigit() or int(number) not in range(1,8):
