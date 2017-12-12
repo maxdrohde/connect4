@@ -8,13 +8,12 @@ import copy
 class Game:
     def __init__(self, bot1 = None, bot2 = None):
         self.game_board = Board()
-        self.current_turn = 1
+        self.current_turn = self.game_board.blue
         self.bot1 = bot1
         self.bot2 = bot2
         self.sleep_time = 0.0
         self.clear = True
-        self.display = False
-
+        self.display = True
 
         if bot1:
             bot1.player_color = self.game_board.blue
@@ -23,25 +22,30 @@ class Game:
 
     def play(self):
 
-
         game_over = False
+        drop_attempts = 0
 
         while not game_over:
-
             if self.clear == True:
                 os.system('clear')
             if self.display == True:
                 self.game_board.print_board()
+
             num = self.get_column()
-            success = self.game_board.drop(num,self.current_turn)
-            if success == True:
-                if self.current_turn == 1:
-                    self.current_turn = 2
-                else:
-                    self.current_turn = 1
+            success = self.game_board.drop(num, self.current_turn)
+            drop_attempts += 1
 
             game_over = self.game_board.check_win()
 
+            if success == True and not game_over:
+                self.switch_turns()
+                drop_attempts = 0
+
+            if drop_attempts > 2:
+                q = input("Too many failed attempts! Enter 'q' to quit. ")
+                if q == 'q': exit(1)
+
+        # Game has ended!
         if self.clear == True:
             os.system('clear')
 
@@ -52,39 +56,40 @@ class Game:
             print("It's a tie!")
             return('Tie')
         else:
-            num_winner = str(self.flip(self.current_turn))
-            winner = self.number_to_bot(num_winner,self.bot1.name,self.bot2.name)
+            winner = self.color_to_bot(self.current_turn) # current_turn is color
 
             if self.display == True:
                 print(winner+' wins!')
 
             return(winner)
 
-
-
-
-    def flip(self, x):
-        if x == 1:
-            return (2)
+    def switch_turns(self):
+        if self.current_turn == self.game_board.red:
+            self.current_turn = self.game_board.blue
         else:
-            return(1)
+            self.current_turn = self.game_board.red
 
-    def number_to_bot(self,number,b1,b2):
-        if number == '1':
-            return(b1)
+    def color_to_bot(self, color):
+        """Takes in a color and returns bot"""
+        if self.bot1 and color == self.bot1.player_color:
+            return(self.bot1.name)
+        elif self.bot2 and color == self.bot2.player_color:
+            return(self.bot2.name)
         else:
-            return(b2)
+            return("Human")
 
     def get_column(self):
-        if self.current_turn == 1 and self.bot1 != None:
+        """Request a column number from the current player"""
+        if self.bot1 != None and self.bot1.player_color == self.current_turn:
             number = self.bot1.play_piece(copy.deepcopy(self.game_board))
             time.sleep(self.sleep_time)
-        elif self.current_turn == 2 and self.bot2 != None:
+        elif self.bot2 != None and self.bot2.player_color == self.current_turn:
             number = self.bot2.play_piece(copy.deepcopy(self.game_board))
             time.sleep(self.sleep_time)
         else:
+            # Ask a human
             number = input('Column?     ')
-            while not number.isdigit() or int(number) not in range(1,8):
+            while not number.isdigit() or int(number) not in range(1, self.game_board.width + 1):
                 number = input('Enter a proper column number!')
             number = int(number)
 
@@ -97,7 +102,11 @@ if __name__ == '__main__':
     if len(sys.argv) > 2:
         bot2 = load_bot(sys.argv[2])
     if len(sys.argv) > 3:
-        rounds = sys.argv[3]
+        try:
+            rounds = int(sys.argv[3])
+        except ValueError:
+            print("Argument for number of rounds invalid")
+            exit(1)
 
     start = time.time()
     winners = []
@@ -107,10 +116,12 @@ if __name__ == '__main__':
 
     end = time.time()
     elapsed = end - start
-    b1_wins = str(len([x for x in winners if x == bot1.name]))
-    b2_wins = str(len([x for x in winners if x == bot2.name]))
-    ties = str(len([x for x in winners if x == 'Tie']))
-    print(bot1.name + ' won '+b1_wins+ ' times')
-    print(bot2.name + ' won '+b2_wins+ ' times')
-    print('There were '+ties+' ties')
-    print('This simulation took ' + str(elapsed) + ' seconds')
+
+    if rounds > 1:
+        b1_wins = str(len([x for x in winners if x == bot1.name]))
+        b2_wins = str(len([x for x in winners if x == bot2.name]))
+        ties = str(len([x for x in winners if x == 'Tie']))
+        print(bot1.name + ' won '+b1_wins+ ' times')
+        print(bot2.name + ' won '+b2_wins+ ' times')
+        print('There were '+ties+' ties')
+        print('This simulation took ' + str(elapsed) + ' seconds')
