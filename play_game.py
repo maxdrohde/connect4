@@ -122,7 +122,7 @@ if __name__ == '__main__':
     end = time.time()
     elapsed = end - start
 
-    if rounds > 1
+    if rounds > 1:
         b1_wins = str(len([x for x in winners if x == bot1.name]))
         b2_wins = str(len([x for x in winners if x == bot2.name]))
         ties = str(len([x for x in winners if x == 'Tie']))
