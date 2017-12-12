@@ -11,6 +11,10 @@ class Game:
         self.current_turn = 1
         self.bot1 = bot1
         self.bot2 = bot2
+        self.sleep_time = 0.0
+        self.clear = True
+        self.display = False
+
 
         if bot1:
             bot1.player_color = self.game_board.blue
@@ -18,11 +22,16 @@ class Game:
             bot2.player_color = self.game_board.red
 
     def play(self):
+
+
         game_over = False
 
         while not game_over:
-            os.system('clear')
-            self.game_board.print_board()
+
+            if self.clear == True:
+                os.system('clear')
+            if self.display == True:
+                self.game_board.print_board()
             num = self.get_column()
             success = self.game_board.drop(num,self.current_turn)
             if success == True:
@@ -33,15 +42,25 @@ class Game:
 
             game_over = self.game_board.check_win()
 
-        os.system('clear')
-        self.game_board.print_board()
+        if self.clear == True:
+            os.system('clear')
+
+        if self.display == True:
+            self.game_board.print_board()
 
         if game_over == "tie":
             print("It's a tie!")
+            return('Tie')
         else:
             num_winner = str(self.flip(self.current_turn))
             winner = self.number_to_bot(num_winner,self.bot1.name,self.bot2.name)
-            print(winner+' wins!')
+
+            if self.display == True:
+                print(winner+' wins!')
+
+            return(winner)
+
+
 
 
     def flip(self, x):
@@ -59,10 +78,10 @@ class Game:
     def get_column(self):
         if self.current_turn == 1 and self.bot1 != None:
             number = self.bot1.play_piece(copy.deepcopy(self.game_board))
-            time.sleep(0.25)
+            time.sleep(self.sleep_time)
         elif self.current_turn == 2 and self.bot2 != None:
             number = self.bot2.play_piece(copy.deepcopy(self.game_board))
-            time.sleep(0.25)
+            time.sleep(self.sleep_time)
         else:
             number = input('Column?     ')
             while not number.isdigit() or int(number) not in range(1,8):
@@ -72,11 +91,26 @@ class Game:
         return(number)
 
 if __name__ == '__main__':
-    bot1, bot2 = None, None
+    bot1, bot2, rounds = None, None, 1
     if len(sys.argv) > 1:
         bot1 = load_bot(sys.argv[1])
     if len(sys.argv) > 2:
         bot2 = load_bot(sys.argv[2])
+    if len(sys.argv) > 3:
+        rounds = sys.argv[3]
 
-    game = Game(bot1, bot2)
-    game.play()
+    start = time.time()
+    winners = []
+    for x in range(int(rounds)):
+        game = Game(bot1, bot2)
+        winners.append(game.play())
+
+    end = time.time()
+    elapsed = end - start
+    b1_wins = str(len([x for x in winners if x == bot1.name]))
+    b2_wins = str(len([x for x in winners if x == bot2.name]))
+    ties = str(len([x for x in winners if x == 'Tie']))
+    print(bot1.name + ' won '+b1_wins+ ' times')
+    print(bot2.name + ' won '+b2_wins+ ' times')
+    print('There were '+ties+' ties')
+    print('This simulation took ' + str(elapsed) + ' seconds')
