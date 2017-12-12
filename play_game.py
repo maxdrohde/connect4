@@ -4,7 +4,9 @@ import os, sys
 import time
 import copy
 import matplotlib.pyplot as plt
+import seaborn as sns
 import numpy as np
+
 
 
 class Game:
@@ -126,15 +128,28 @@ if __name__ == '__main__':
         b1_wins = str(len([x for x in winners if x == bot1.name]))
         b2_wins = str(len([x for x in winners if x == bot2.name]))
         ties = str(len([x for x in winners if x == 'Tie']))
+        print('------------RESULTS-------------')
         print(bot1.name + ' won '+b1_wins+ ' times')
         print(bot2.name + ' won '+b2_wins+ ' times')
         print('There were '+ties+' ties')
-        print('This simulation took ' + str(elapsed) + ' seconds')
 
-    #Plots the wins for each bot
-        x = np.arange(2)
-        wins = [int(b1_wins),int(b2_wins)]
-        fig, ax = plt.subplots()
-        plt.bar(x, wins)
-        plt.xticks(x, (bot1.name,bot2.name))
-        plt.show()
+        print('--------------------------------')
+        b1_win_rate = (int(b1_wins)/(int(b1_wins)+int(b2_wins)))*100
+        b2_win_rate = (int(b2_wins)/(int(b1_wins)+int(b2_wins)))*100
+        print(bot1.name + ' win rate is '+ str(b1_win_rate)+'%')
+        print(bot2.name + ' win rate is '+ str(b2_win_rate)+'%')
+        print('--------------------------------')
+
+        print('This simulation took ' + str(elapsed) + ' seconds')
+        print('--------------------------------')
+
+        plot = False
+        if plot == True:
+        #Plots the wins for each bot
+            x = np.arange(2)
+            wins = [int(b1_wins),int(b2_wins)]
+            fig, ax = plt.subplots()
+            #plt.bar(x, wins,width=0.01)
+            #plt.xticks(x, (bot1.name,bot2.name))
+            ax = sns.barplot(x =[bot1.name,bot2.name], y = wins)
+            plt.show()

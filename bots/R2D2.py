@@ -13,7 +13,7 @@ class R2D2:
         # All columns start out available. For example, this may start as a list
         # [0, 1, 2, 3, 4, 5, 6]
         available_columns = [i for i in range(len(board.board[0]))]
-        rand_col = self.get_random_column(available_columns)
+        rand_col = self.get_random_column()
 
         # Find a new column if the randomly chosen one is full
         rand_col = self.get_random_column()
@@ -26,3 +26,5 @@ class R2D2:
     def get_random_column(self):
         rand_num = randint(0, 6)
         return(rand_num)
+
+# Available column functionality broken  - need to fix!
