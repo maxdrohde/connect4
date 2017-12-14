@@ -18,7 +18,7 @@ def best_column(board,color):
     column_point_array = []
 
     for column in open_columns:
-        new_board = drop(board,column,blue)
+        new_board = drop(board,column,color)
         column_point_array.append((column,eval_board(new_board,color)))
 
     highest_val = max(column_point_array,key=itemgetter(1))[1]
@@ -37,7 +37,7 @@ def worst_column(board,color):
     column_point_array = []
 
     for column in open_columns:
-        new_board = drop(board,column,blue)
+        new_board = drop(board,column,color)
         column_point_array.append((column,eval_enemy_board(new_board,color)))
 
     highest_val = max(column_point_array,key=itemgetter(1))[1]
@@ -157,22 +157,18 @@ def transpose(array):
 
 def eval_board(array,color):
     points_array = []
-    if x_in_a_row(array,color,2):
-        points_array.append(10)
+
     if x_in_a_row(array,color,3):
         points_array.append(100)
     if x_in_a_row(array,color,4):
         points_array.append(150000)
 
-    if x_in_a_row(transpose(array),color,2):
-        points_array.append(10)
+
     if x_in_a_row(transpose(array),color,3):
         points_array.append(100)
     if x_in_a_row(transpose(array),color,4):
         points_array.append(150000)
 
-    if x_in_a_row(get_diagonals(array),color,2):
-        points_array.append(10)
     if x_in_a_row(get_diagonals(array),color,3):
         points_array.append(100)
     if x_in_a_row(get_diagonals(array),color,4):

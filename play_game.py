@@ -16,7 +16,7 @@ class Game:
         self.bot1 = bot1
         self.bot2 = bot2
 
-        self.sleep_time = 0.0 # Controls the delay for the bots actions
+        self.sleep_time = 0.00 # Controls the delay for the bots actions
         self.clear = False # For debugging - prints all the boards if false
         self.display = False # If running simulations - keep false
 
@@ -60,7 +60,7 @@ class Game:
             self.game_board.print_board()
 
         if game_over == "tie":
-            print("It's a tie!")
+            #print("It's a tie!")
             return('Tie')
         else:
             winner = self.color_to_bot(self.current_turn) # current_turn is color
@@ -122,7 +122,9 @@ if __name__ == '__main__':
     for x in range(int(rounds)):
         game = Game(bot1, bot2)
         winners.append(game.play())
-        print(x)
+        #input()
+        if x % 500 == 0:
+            print(x)
 
     end = time.time()
     elapsed = end - start
