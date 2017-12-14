@@ -17,13 +17,15 @@ class Game:
         self.bot2 = bot2
 
         self.sleep_time = 0.0 # Controls the delay for the bots actions
-        self.clear = True # For debugging - prints all the boards if false
+        self.clear = False # For debugging - prints all the boards if false
         self.display = False # If running simulations - keep false
 
         if bot1:
             bot1.player_color = self.game_board.blue
+            bot1.enemy_color = self.game_board.red
         if bot2:
             bot2.player_color = self.game_board.red
+            bot2.enemy_color = self.game_board.blue
 
     def play(self):
 
@@ -120,6 +122,7 @@ if __name__ == '__main__':
     for x in range(int(rounds)):
         game = Game(bot1, bot2)
         winners.append(game.play())
+        print(x)
 
     end = time.time()
     elapsed = end - start
