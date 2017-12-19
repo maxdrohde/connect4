@@ -2,21 +2,22 @@ import helpers as hlp
 import random
 
 class Hal2:
-    def __init__(self):
+    def __init__(self, color):
         self.name = "Hal2"
-        self.player_color = None
-        self.red = None
-        self.blue = None
+        self.player_color = color
+        self.color2 = None
+        self.color1 = None
 
-    def other(self,color,blue,red):
-        if color == red:
-            return(blue)
+    def other(self,color,color1,color2):
+        if color == color2:
+            return(color1)
         else:
-            return(red)
+            return(color2)
 
 
-    def num_in_column(self,board,column_number,color):
-    # inputs a column number and a player number, and returns the number of pieces the player has in that column
+    def num_in_column(self, board, column_number, color):
+    # Inputs a column number and a player number, and returns the number of
+    # pieces the player has in that column
         tboard = hlp.transpose(board)
         column = tboard[column_number]
 
@@ -27,10 +28,10 @@ class Hal2:
         return(len(count))
 
     def play_piece(self, board):
-        self.red = board.red
-        self.blue = board.blue
+        self.color2 = board.color2
+        self.color1 = board.color1
 
-        pieces_per_column = [self.num_in_column(board.board,num,self.other(self.player_color,self.blue,self.red)) for num in range(0,7)]
+        pieces_per_column = [self.num_in_column(board.board,num,self.other(self.player_color,self.color1,self.color2)) for num in range(0,7)]
         best = max([(v,i) for i,v in enumerate(pieces_per_column)])[1]
         if board.board[0][best] == board.blank:
             return(best+1)

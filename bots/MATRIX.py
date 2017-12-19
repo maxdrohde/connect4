@@ -3,12 +3,15 @@ from matrixtools import *
 
 
 class MATRIX:
-    def __init__(self):
+    def __init__(self, color):
         self.name = "MATRIX"
-        self.player_color = None
+        self.player_color = color
         self.enemy_color = None
 
     def play_piece(self, board):
+        if not self.enemy_color:
+            if board.color1 == self.player_color: self.enemy_color = board.color2
+            if board.color2 == self.player_color: self.enemy_color = board.color1 
 
         array = board.board
         my_row = best_column(array,self.player_color)

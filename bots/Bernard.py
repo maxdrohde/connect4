@@ -1,22 +1,21 @@
 import sys
 
 class Bernard:
-    def __init__(self):
+    def __init__(self, color):
         self.name = "Bernard"
-        self.player_color = ""
+        self.player_color = color
 
         self.last_board_grid = []
         self.board_grid = []
         self.board_width = 0
         self.board_height = 0
 
-        self.red = ''
-        self.blue = ''
         self.blank = ''
 
     def play_piece(self, board):
         # Special case if it's the first turn
-        if not self.board_grid:
+        if (not board.board[board.height - 1].count(self.player_color) and
+            not board.board[board.height - 2].count(self.player_color)):
             return(self.first_turn(board))
 
         self.update_board(board)
@@ -35,7 +34,7 @@ class Bernard:
         # Before returning, always update our board state
         ok = board.drop(choice, self.player_color)
         if not ok:
-            print("Something went wrong :()")
+            print("Something went wrong :(")
             exit(1)
 
         self.update_board(board)
@@ -67,15 +66,19 @@ class Bernard:
         board.drop(center, self.player_color)
         self.update_board(board)
 
-        self.red = board.red
-        self.blue = board.blue
         self.blank = board.blank
 
         return(center)
 
     def test3color1blank(self, row):
-        return ((row.count(self.red) == 3 or row.count(self.blue) == 3) and
-                row.count(self.blank) == 1)
+        if row.count(self.blank) != 1:
+            return False
+        elif row.count(self.player_color) == 3:
+            return True
+        elif row.count(self.player_color) == 0:
+            return True
+        else:
+            return False
 
     def search3(self, r, c):
         # Check right

@@ -7,8 +7,8 @@ height = 6
 width = 7
 
 blank = colors.WHITE + shapes.CIRCLE + colors.ENDC
-blue = colors.CYAN + shapes.CIRCLE + colors.ENDC
-red = colors.RED + shapes.CIRCLE + colors.ENDC
+color1 = colors.CYAN + shapes.CIRCLE + colors.ENDC
+color2 = colors.RED + shapes.CIRCLE + colors.ENDC
 
 row = [blank for x in range(width)]
 board = [row[:] for x in range(height)]
@@ -18,7 +18,7 @@ def best_column(board,color):
     column_point_array = []
 
     for column in open_columns:
-        new_board = drop(board,column,blue)
+        new_board = drop(board,column,color1)
         column_point_array.append((column,eval_board(new_board,color)))
 
     highest_val = max(column_point_array,key=itemgetter(1))[1]
@@ -37,7 +37,7 @@ def worst_column(board,color):
     column_point_array = []
 
     for column in open_columns:
-        new_board = drop(board,column,blue)
+        new_board = drop(board,column,color1)
         column_point_array.append((column,eval_enemy_board(new_board,color)))
 
     highest_val = max(column_point_array,key=itemgetter(1))[1]
