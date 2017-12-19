@@ -14,4 +14,4 @@ For an example bot, refer to Hal in the bots directory.
 
 ## Playing the game
 
-To play, run on the command line `play_game.py`. The game relies on a console that is capable of printing Unicode characters and is responsive to ANSI escape sequences. To play against a bot, run `play_game.py Hal`, where 'Hal' is the name of the bot you wish to play against. To have two bots play against each other, run `play_game.py Hal R2D2`, making sure both are defined in the bots directory.
+To play, run on the command line `play_game.py`. The game relies on a console that is capable of printing Unicode characters and is responsive to ANSI escape sequences. To play against a bot, run `play_game.py Hal`, where 'Hal' is the name of the bot you wish to play against. To have two bots play against each other, run `play_game.py Hal R2D2`, making sure both are defined in the bots directory. To run a simulation, put the numbers of rounds as an additional command line argument, for example, `play_game.py Hal R2D2 100` to play a simulation of 100 matches.

@@ -53,7 +53,7 @@ class Game:
             self.game_board.print_board()
 
         if game_over == "tie":
-            print("It's a tie!")
+            #print("It's a tie!")
             return('Tie')
         else:
             winner = self.color_to_bot(self.current_turn) # current_turn is color
