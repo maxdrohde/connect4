@@ -1,11 +1,9 @@
 from random import randint
 
 class R2D2:
-    def __init__(self):
+    def __init__(self, color):
         self.name = "R2D2"
-        self.player_color = None
-        self.red = None
-        self.blue = None
+        self.player_color = color
 
     def play_piece(self, board):
         """ Always chooses a random column """
@@ -20,7 +18,7 @@ class R2D2:
         while board.board[0][rand_col] != board.blank:
             rand_col = self.get_random_column()
 
-        # The board columns are numbered for humans, so increase by one
+        # The board columns are numbecolor2 for humans, so increase by one
         return rand_col + 1
 
     def get_random_column(self):

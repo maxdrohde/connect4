@@ -2,13 +2,13 @@ from helpers import colors, shapes
 
 class Board:
 
-    def __init__(self):
+    def __init__(self, c1, c2):
         self.height = 6
         self.width = 7
-
         self.blank = colors.WHITE + shapes.CIRCLE + colors.ENDC
-        self.blue = colors.CYAN + shapes.CIRCLE + colors.ENDC
-        self.red = colors.RED + shapes.CIRCLE + colors.ENDC
+
+        self.color1 = c1
+        self.color2 = c2
 
         row = [self.blank for x in range(self.width)]
         self.board = [row[:] for x in range(self.height)]
@@ -28,7 +28,7 @@ class Board:
                 return(False)
 
         piece = player_color
-        
+
         self.board[current_row][column_number] = piece
         return(True)
 
@@ -44,13 +44,13 @@ class Board:
         # Get diagonals from bottom left to the middle
         for row in range(self.height - 1, -1, -1):
             diag_length = min(self.height, self.height - row)
-            diag = ''.join([brd[row + i][i] for i in range(diag_length)])
+            diag = [brd[row + i][i] for i in range(diag_length)]
             diag_down.append(diag)
 
         # Get diagonals from one past the middle to the top right
         for col in range(1, self.width):
             diag_length = min(self.height, self.width - col)
-            diag = ''.join([brd[i][col + i] for i in range(diag_length)])
+            diag = [brd[i][col + i] for i in range(diag_length)]
             diag_down.append(diag)
 
         # Get diagonals in the other direction by calling recursively with the
@@ -62,10 +62,20 @@ class Board:
         return(diag_down)
 
     def x_in_a_row(self,array,x):
+        """Given a list of lists or strings, returns whether there are x
+           non-blank elements in a row in any of the lists or strings.
+        """
         for row in array:
+            unique = set(row)
+            if self.blank in unique:
+                unique.remove(self.blank)
+            if not unique:
+                continue
+
             row_string = ''.join(row)
-            if self.blue*x in row_string or self.red*x in row_string:
-                return(True)
+            for color in iter(unique):
+                if color * x in row_string:
+                    return(True)
         return(False)
 
     def check_full(self):

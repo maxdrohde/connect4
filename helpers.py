@@ -1,13 +1,5 @@
 import importlib
-
-def load_bot(bot_name):
-    try:
-        bot_module = importlib.import_module('bots.' + bot_name)
-        bot_class = getattr(bot_module, bot_name)
-        return(bot_class())
-    except ImportError:
-        print("Can't import " + bot_name + '!')
-        exit(1)
+from argparse import ArgumentParser
 
 class colors:
     BLACK   = "\033[0;30m"
@@ -34,3 +26,25 @@ class shapes:
 
 def transpose(array):
     return ([list(x) for x in zip(*array)])
+
+def load_bot(bot_name, bot_color):
+    try:
+        bot_module = importlib.import_module('bots.' + bot_name)
+        bot_class = getattr(bot_module, bot_name)
+        return(bot_class(bot_color))
+    except ImportError:
+        print("Can't import " + bot_name + '!')
+        exit(1)
+
+def get_args():
+    parser = ArgumentParser(description='Play a game of Connect 4.')
+    parser.add_argument('-g', type=str, choices=['hvb', 'bvh', 'bvb'],
+                        help='the name of a bot specified in the bots directory')
+    parser.add_argument('bot1', metavar='B1', type=str, nargs='?',
+                        help='the name of a bot specified in the bots directory')
+    parser.add_argument('bot2', metavar='B2', type=str, nargs='?',
+                        help='the name of a bot specified in the bots directory')
+    parser.add_argument('-n', type=int, dest='rounds',
+                        default=1, help='the number of games to play')
+
+    return(parser.parse_args())

@@ -7,8 +7,8 @@ height = 6
 width = 7
 
 blank = colors.WHITE + shapes.CIRCLE + colors.ENDC
-blue = colors.CYAN + shapes.CIRCLE + colors.ENDC
-red = colors.RED + shapes.CIRCLE + colors.ENDC
+color1 = colors.CYAN + shapes.CIRCLE + colors.ENDC
+color2 = colors.RED + shapes.CIRCLE + colors.ENDC
 
 row = [blank for x in range(width)]
 board = [row[:] for x in range(height)]
