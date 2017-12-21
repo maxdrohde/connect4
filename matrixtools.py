@@ -158,17 +158,22 @@ def transpose(array):
 def eval_board(array,color):
     points_array = []
 
+    if x_in_a_row(array,color,2):
+        points_array.append(10)
     if x_in_a_row(array,color,3):
         points_array.append(100)
     if x_in_a_row(array,color,4):
         points_array.append(150000)
 
-
+    if x_in_a_row(transpose(array),color,2):
+        points_array.append(10)
     if x_in_a_row(transpose(array),color,3):
         points_array.append(100)
     if x_in_a_row(transpose(array),color,4):
         points_array.append(150000)
 
+    if x_in_a_row(get_diagonals(array),color,2):
+        points_array.append(10)
     if x_in_a_row(get_diagonals(array),color,3):
         points_array.append(100)
     if x_in_a_row(get_diagonals(array),color,4):
@@ -179,20 +184,16 @@ def eval_board(array,color):
 def eval_enemy_board(array,color):
     points_array = []
     if x_in_a_row(array,color,4):
-        points_array.append(100000)
-
+        points_array.append(100000) 
     if x_in_a_row(transpose(array),color,4):
         points_array.append(100000)
-
     if x_in_a_row(get_diagonals(array),color,4):
         points_array.append(100000)
 
     if x_in_a_row(array,color,3):
         points_array.append(1000)
-
     if x_in_a_row(transpose(array),color,3):
-        points_array.append(1000)
-
+        points_array.append(1000
     if x_in_a_row(get_diagonals(array),color,3):
         points_array.append(1000)
 

@@ -16,9 +16,9 @@ class Game:
         self.bot1 = bot1
         self.bot2 = bot2
 
-        self.sleep_time = 0.00 # Controls the delay for the bots actions
-        self.clear = False # For debugging - prints all the boards if false
-        self.display = False # If running simulations - keep false
+        self.sleep_time = 0.10 # Controls the delay for the bots actions
+        self.clear = True # For debugging - prints all the boards if false
+        self.display = True # If running simulations - keep false
 
         if bot1:
             bot1.player_color = self.game_board.blue
