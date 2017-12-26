@@ -172,7 +172,7 @@ if __name__ == '__main__':
         bot = helpers.load_bot(args.bot1, color2)
         player1 = bot if args.g == 'bvh' else human
         player2 = human if player1 == bot else bot
-    elif args.g == 'hvh':
+    elif args.g == 'hvh' or args.g == None:
         player1 = Human(input("Player 1, enter your name: "), color1)
         player2 = Human(input("Player 2, enter your name: "), color2)
     else:
