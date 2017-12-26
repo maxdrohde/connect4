@@ -37,7 +37,7 @@ class Game:
 
             game_over = self.game_board.check_win()
 
-            if success == True and not game_over:
+            if success != False and not game_over:
                 self.switch_turns()
                 drop_attempts = 0
 

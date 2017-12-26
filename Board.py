@@ -30,7 +30,7 @@ class Board:
         piece = player_color
 
         self.board[current_row][column_number] = piece
-        return(True)
+        return((current_row, column_number))
 
     def get_diagonals(self, flipped = False):
         """Recursively finds all diagonals in the current board

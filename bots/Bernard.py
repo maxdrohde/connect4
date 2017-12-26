@@ -1,5 +1,3 @@
-import sys
-
 class Bernard:
     def __init__(self, color):
         self.name = "Bernard"
